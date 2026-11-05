@@ -1,0 +1,12 @@
+{
+  "name": "activetheory-replica",
+  "version": "1.0.0",
+  "description": "Replica of Active Theory website",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

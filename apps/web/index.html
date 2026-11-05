@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no, minimal-ui, viewport-fit=cover">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon32-af94112f.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon16-9e4401be.png">
+  <title>TOS Labs</title>
+  
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+      touch-action: none;
+      -webkit-font-smoothing: antialiased;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    /* Fixed Top-Right Exact Active Theory Pill */
+    .active-theory-pill {
+      position: fixed;
+      top: 24px;
+      right: 32px;
+      width: 244px;
+      height: 45px;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      user-select: none;
+      cursor: pointer;
+      transition: transform 0.2s ease, filter 0.2s ease, opacity 0.3s ease;
+      filter: drop-shadow(0 4px 18px rgba(0, 0, 0, 0.7));
+    }
+
+    .active-theory-pill:hover {
+      transform: translateY(-1px) scale(1.02);
+      filter: drop-shadow(0 6px 24px rgba(0, 0, 0, 0.9)) brightness(1.1);
+    }
+
+    .pill-bg-img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      pointer-events: none;
+      image-rendering: -webkit-optimize-contrast;
+    }
+
+    .pill-hit-btn {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      outline: none;
+      transition: background-color 0.2s ease;
+    }
+
+    #pill-hit-work {
+      left: 0;
+      width: 36%;
+      border-top-left-radius: 9999px;
+      border-bottom-left-radius: 9999px;
+    }
+
+    #pill-hit-audio {
+      left: 36%;
+      width: 28%;
+    }
+
+    #pill-hit-contact {
+      left: 64%;
+      width: 36%;
+      border-top-right-radius: 9999px;
+      border-bottom-right-radius: 9999px;
+    }
+
+    .pill-hit-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    /* Root Layout */
+    #experience-root {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+    }
+
+    /* Stage 1: Igloo 3D Hero Layer */
+    #hero-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      opacity: 1;
+      transform: scale(1) translateY(0px);
+      filter: blur(0px) contrast(1) brightness(1);
+      transition: 
+        opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+        filter 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+      pointer-events: auto;
+      will-change: opacity, transform, filter;
+    }
+
+    #hero-layer.blurred-out {
+      opacity: 0;
+      transform: scale(1.12) translateY(-40px);
+      filter: blur(32px) contrast(1.2) brightness(1.3);
+      pointer-events: none;
+    }
+
+    /* Chromatic Blur Flash Overlay (Igloo signature blur transition) */
+    #transition-blur-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 50;
+      pointer-events: none;
+      opacity: 0;
+      background: radial-gradient(circle at center, rgba(129, 236, 254, 0.2), transparent 70%);
+      backdrop-filter: blur(0px);
+      -webkit-backdrop-filter: blur(0px);
+      transition: opacity 0.45s ease-out, backdrop-filter 0.45s ease-out;
+    }
+
+    #transition-blur-overlay.flash {
+      opacity: 1;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    /* Stage 2: Active Theory Experience Layer */
+    #activetheory-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      opacity: 0;
+      transform: scale(0.92) translateY(40px);
+      filter: blur(32px) contrast(1.2) brightness(0.7);
+      pointer-events: none;
+      transition: 
+        opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+        filter 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+      background: #000;
+      will-change: opacity, transform, filter;
+    }
+
+    #activetheory-layer.blurred-in {
+      opacity: 1;
+      transform: scale(1) translateY(0px);
+      filter: blur(0px) contrast(1) brightness(1);
+      pointer-events: auto;
+    }
+
+    #at-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+      background: #000;
+    }
+  </style>
+
+  <script type="module" crossorigin src="/assets/index-2e130bc1.js"></script>
+</head>
+<body>
+  <!-- The Exact Active Theory Pill from Screenshot -->
+  <div class="active-theory-pill" id="at-pill" title="Navigation">
+    <img src="/assets/nav-pill.png" alt="Active Theory Pill" class="pill-bg-img" />
+    <button class="pill-hit-btn" id="pill-hit-work" title="Work" type="button"></button>
+    <button class="pill-hit-btn" id="pill-hit-audio" title="Toggle Audio" type="button"></button>
+    <button class="pill-hit-btn" id="pill-hit-contact" title="Contact" type="button"></button>
+  </div>
+
+  <div id="experience-root">
+    <!-- Chromatic Blur Transition Flash -->
+    <div id="transition-blur-overlay"></div>
+
+    <!-- TOS Labs Igloo 3D Hero Layer -->
+    <div id="hero-layer">
+      <div id="app"></div>
+    </div>
+
+    <!-- Active Theory Continuous Layer -->
+    <div id="activetheory-layer">
+      <iframe id="at-iframe" src="/activetheory/" allow="autoplay; fullscreen; xr-spatial-tracking"></iframe>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const heroLayer = document.getElementById('hero-layer');
+      const atLayer = document.getElementById('activetheory-layer');
+      const blurOverlay = document.getElementById('transition-blur-overlay');
+      const atIframe = document.getElementById('at-iframe');
+
+      const btnWork = document.getElementById('pill-hit-work');
+      const btnAudio = document.getElementById('pill-hit-audio');
+      const btnContact = document.getElementById('pill-hit-contact');
+
+      let currentSection = 'hero'; // 'hero' | 'activetheory'
+      let isTransitioning = false;
+
+      function triggerBlurFlash() {
+        blurOverlay.classList.add('flash');
+        setTimeout(() => {
+          blurOverlay.classList.remove('flash');
+        }, 500);
+      }
+
+      function transitionToActiveTheory(target) {
+        if (currentSection === 'activetheory' || isTransitioning) {
+          if (target && atIframe && atIframe.contentWindow) {
+            try {
+              atIframe.contentWindow.postMessage({ type: 'NAV_CLICK', target: target }, '*');
+            } catch (_) {}
+          }
+          return;
+        }
+        isTransitioning = true;
+        currentSection = 'activetheory';
+
+        triggerBlurFlash();
+
+        heroLayer.classList.add('blurred-out');
+        atLayer.classList.add('blurred-in');
+
+        setTimeout(() => {
+          if (atIframe && atIframe.contentWindow) {
+            atIframe.contentWindow.focus();
+            if (target) {
+              try {
+                atIframe.contentWindow.postMessage({ type: 'NAV_CLICK', target: target }, '*');
+              } catch (_) {}
+            }
+          }
+          isTransitioning = false;
+        }, 850);
+      }
+
+      function transitionToHero() {
+        if (currentSection === 'hero' || isTransitioning) return;
+        isTransitioning = true;
+        currentSection = 'hero';
+
+        triggerBlurFlash();
+
+        atLayer.classList.remove('blurred-in');
+        heroLayer.classList.remove('blurred-out');
+
+        setTimeout(() => {
+          isTransitioning = false;
+        }, 850);
+      }
+
+      // Pill button click handlers
+      btnWork.addEventListener('click', (e) => {
+        e.stopPropagation();
+        transitionToActiveTheory('work');
+      });
+
+      btnContact.addEventListener('click', (e) => {
+        e.stopPropagation();
+        transitionToActiveTheory('contact');
+      });
+
+      btnAudio.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (atIframe && atIframe.contentWindow) {
+          try {
+            atIframe.contentWindow.postMessage({ type: 'NAV_CLICK', target: 'audio' }, '*');
+          } catch (_) {}
+        }
+      });
+
+      // Continuous scroll down on window (when on Hero)
+      let wheelAcc = 0;
+      let wheelTimer = null;
+
+      window.addEventListener('wheel', (e) => {
+        if (currentSection !== 'hero' || isTransitioning) return;
+        if (e.deltaY > 0) {
+          wheelAcc += e.deltaY;
+          clearTimeout(wheelTimer);
+          wheelTimer = setTimeout(() => { wheelAcc = 0; }, 350);
+          if (wheelAcc > 20) {
+            wheelAcc = 0;
+            transitionToActiveTheory();
+          }
+        }
+      }, { passive: true });
+
+      // Custom event from App3D.js
+      window.addEventListener('enter_activetheory', () => {
+        transitionToActiveTheory();
+      });
+
+      // Message listeners from inside Active Theory iframe
+      window.addEventListener('message', (event) => {
+        if (!event.data) return;
+        if (event.data.type === 'SCROLL_UP_TO_HERO') {
+          transitionToHero();
+        }
+      });
+
+      // Keyboard navigation
+      window.addEventListener('keydown', (e) => {
+        if (isTransitioning) return;
+        if (currentSection === 'hero') {
+          if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
+            transitionToActiveTheory();
+          }
+        } else {
+          if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+            transitionToHero();
+          }
+        }
+      });
+
+      // Touch gesture support on Hero
+      let touchStartY = 0;
+      window.addEventListener('touchstart', (e) => {
+        if (e.touches && e.touches[0]) {
+          touchStartY = e.touches[0].clientY;
+        }
+      }, { passive: true });
+
+      window.addEventListener('touchmove', (e) => {
+        if (currentSection !== 'hero' || isTransitioning) return;
+        if (e.touches && e.touches[0]) {
+          const deltaY = touchStartY - e.touches[0].clientY;
+          if (deltaY > 35) {
+            transitionToActiveTheory();
+          }
+        }
+      }, { passive: true });
+    })();
+  </script>
+</body>
+</html>
