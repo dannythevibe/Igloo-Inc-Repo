@@ -1,2 +1,8 @@
-name = "tos-labs-igloo"
-pages_build_output_dir = "apps/web"
+name = "tos-labs"
+main = "worker.js"
+compatibility_date = "2024-09-23"
+account_id = "730f4300ada352c5cc0d09bae58f6729"
+
+[assets]
+directory = "./dist"
+binding = "ASSETS"

@@ -1,5 +1,6 @@
 import React from 'react';
-import { ArrowUpRight, ShieldCheck, Terminal, Compass, Layers } from 'lucide-react';
+import { ArrowUpRight, Compass, Terminal } from 'lucide-react';
+import { motion } from 'motion/react';
 
 const CornerTicks = ({ size = 8.667, width = 0.722 }) => (
   <>
@@ -28,12 +29,31 @@ const CornerTicks = ({ size = 8.667, width = 0.722 }) => (
   </>
 );
 
+const cardVariants = {
+  hidden: { opacity: 0, y: 24, filter: "blur(6px)" },
+  show: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
 export const AboutBento: React.FC = () => {
   return (
-    <section id="about" className="w-full bg-[#f5f5f2] py-24 px-6 ipad:px-12 desktop-sm:px-16 border-t border-black/10">
+    <section id="about" className="w-full bg-[#f5f5f2] py-28 px-6 ipad:px-12 desktop-sm:px-16 border-t border-black/10 overflow-hidden">
       <div className="mx-auto max-w-[1240px]">
-        {/* Section Header */}
-        <div className="flex flex-col items-center text-center mb-16">
+        {/* Section Header with Reveal */}
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-60px" }}
+          variants={{
+            hidden: { opacity: 0, y: 20 },
+            show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
+          }}
+          className="flex flex-col items-center text-center mb-16"
+        >
           <div className="relative inline-flex items-center justify-center gap-2 border-[0.722px] border-dashed border-black/15 px-4 py-2 mb-4">
             <CornerTicks />
             <span className="font-mono text-xs uppercase tracking-widest text-[#121212]/70 font-semibold">
@@ -48,12 +68,28 @@ export const AboutBento: React.FC = () => {
           <p className="font-tight text-base sm:text-lg text-[#121212]/70 max-w-2xl">
             TOS Labs is the research and release arm of The Obsidian Studios, a software studio in Nigeria. This is where we ship what we make.
           </p>
-        </div>
+        </motion.div>
 
-        {/* Bento Grid Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+        {/* Bento Grid Layout with Staggered Reveal */}
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-40px" }}
+          variants={{
+            hidden: {},
+            show: {
+              transition: {
+                staggerChildren: 0.12,
+              },
+            },
+          }}
+          className="grid grid-cols-1 md:grid-cols-12 gap-6"
+        >
           {/* Card 1: Core Mission (Large 7 Columns) */}
-          <div className="md:col-span-7 relative rounded-2xl bg-white border border-black/10 p-8 sm:p-10 flex flex-col justify-between overflow-hidden shadow-[0px_4px_24px_rgba(0,0,0,0.03)] group hover:border-black/25 transition-all">
+          <motion.div
+            variants={cardVariants}
+            className="md:col-span-7 relative rounded-2xl bg-white border border-black/10 p-8 sm:p-10 flex flex-col justify-between overflow-hidden shadow-[0px_4px_24px_rgba(0,0,0,0.03)] group hover:border-black/25 transition-all"
+          >
             <CornerTicks />
             <div className="mb-6">
               <div className="flex items-center justify-between mb-4">
@@ -83,10 +119,13 @@ export const AboutBento: React.FC = () => {
               <span>EST. 2026</span>
               <span className="text-[#121212] font-semibold">THE OBSIDIAN STUDIOS</span>
             </div>
-          </div>
+          </motion.div>
 
           {/* Card 2: Tagline & Philosophy (5 Columns) */}
-          <div className="md:col-span-5 relative rounded-2xl bg-[#121212] text-white p-8 sm:p-10 flex flex-col justify-between overflow-hidden shadow-2xl group">
+          <motion.div
+            variants={cardVariants}
+            className="md:col-span-5 relative rounded-2xl bg-[#121212] text-white p-8 sm:p-10 flex flex-col justify-between overflow-hidden shadow-2xl group"
+          >
             <div className="flex items-center justify-between mb-8">
               <span className="font-mono text-[11px] font-semibold tracking-wider text-white/50 uppercase">
                 02 / OPERATING PRINCIPLE
@@ -131,10 +170,13 @@ export const AboutBento: React.FC = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Card 3: Why the Lab Exists (6 Columns) */}
-          <div className="md:col-span-6 relative rounded-2xl bg-white border border-black/10 p-8 sm:p-10 flex flex-col justify-between overflow-hidden shadow-[0px_4px_24px_rgba(0,0,0,0.03)] group hover:border-black/25 transition-all">
+          <motion.div
+            variants={cardVariants}
+            className="md:col-span-6 relative rounded-2xl bg-white border border-black/10 p-8 sm:p-10 flex flex-col justify-between overflow-hidden shadow-[0px_4px_24px_rgba(0,0,0,0.03)] group hover:border-black/25 transition-all"
+          >
             <CornerTicks />
             <div>
               <div className="flex items-center gap-2 mb-4">
@@ -167,10 +209,13 @@ export const AboutBento: React.FC = () => {
                 <span>Direct feedback channel on every release</span>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Card 4: Who's Behind It — Daniel Iwayemi (6 Columns) */}
-          <div className="md:col-span-6 relative rounded-2xl bg-white border border-black/10 p-8 sm:p-10 flex flex-col justify-between overflow-hidden shadow-[0px_4px_24px_rgba(0,0,0,0.03)] group hover:border-black/25 transition-all">
+          <motion.div
+            variants={cardVariants}
+            className="md:col-span-6 relative rounded-2xl bg-white border border-black/10 p-8 sm:p-10 flex flex-col justify-between overflow-hidden shadow-[0px_4px_24px_rgba(0,0,0,0.03)] group hover:border-black/25 transition-all"
+          >
             <CornerTicks />
             <div>
               <div className="flex items-center justify-between mb-4">
@@ -212,10 +257,9 @@ export const AboutBento: React.FC = () => {
               </a>
               <span className="font-mono text-[11px] text-[#121212]/40">LAGOS, NG</span>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );
 };
-

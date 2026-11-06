@@ -125,8 +125,8 @@ export const Section24Hero = () => {
             {/* Mobile Hamburger Toggle */}
             <button
               type="button"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Toggle menu"
+              onClick={() => setMobileMenuOpen(true)}
+              aria-label="Open menu"
               className="size-6 cursor-pointer transition-opacity duration-200 ease-out desktop-sm:hidden [@media(hover:hover)]:hover:opacity-60"
             >
               <img
@@ -138,36 +138,75 @@ export const Section24Hero = () => {
               />
             </button>
           </nav>
+        </Reveal>
 
-          {/* Mobile Menu Dropdown */}
-          {mobileMenuOpen && (
-            <div className="mx-8 mt-2 rounded-xl border border-black/10 bg-[#f5f5f2] p-4 shadow-lg desktop-sm:hidden animate-in fade-in duration-200 relative z-20">
-              <ul className="flex flex-col gap-3 font-tight text-[16px] text-black">
-                {navLinks.map((item) => (
-                  <li key={item.label}>
-                    <a
-                      href={item.href}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="block py-1 text-black/80 hover:text-black"
-                    >
-                      {item.label}
-                    </a>
-                  </li>
-                ))}
-                <li className="pt-2 border-t border-black/10">
+        {/* Mobile Slide-Over Drawer from Right */}
+        <div
+          className={`fixed inset-0 bg-black/40 backdrop-blur-sm z-50 transition-opacity duration-300 desktop-sm:hidden ${
+            mobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+          }`}
+          onClick={() => setMobileMenuOpen(false)}
+          aria-hidden="true"
+        />
+
+        <div
+          className={`fixed top-0 right-0 h-full w-[300px] max-w-[85vw] bg-[#f5f5f2] border-l border-black/10 shadow-2xl z-50 p-6 flex flex-col justify-between transition-transform duration-300 ease-out desktop-sm:hidden ${
+            mobileMenuOpen ? "translate-x-0" : "translate-x-full"
+          }`}
+        >
+          <div>
+            <div className="flex items-center justify-between pb-6 border-b border-black/10">
+              <div className="flex items-center gap-2">
+                <img
+                  src={asset("logo-mark.svg")}
+                  alt="TOS"
+                  width={14}
+                  height={16}
+                  className="h-[16px] w-[14px]"
+                />
+                <span className="font-sans text-[16px] font-semibold tracking-tight text-[#121212]">
+                  TOS Labs
+                </span>
+              </div>
+              <button
+                type="button"
+                onClick={() => setMobileMenuOpen(false)}
+                className="p-1 rounded-lg text-black/60 hover:text-black hover:bg-black/5"
+                aria-label="Close menu"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </button>
+            </div>
+
+            <ul className="flex flex-col gap-4 pt-6 font-tight text-[18px] text-black">
+              {navLinks.map((item) => (
+                <li key={item.label}>
                   <a
-                    href="#signup"
+                    href={item.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center justify-between font-lato text-[14px] font-bold text-[#121212]"
+                    className="block py-1.5 text-black/80 hover:text-black transition-colors"
                   >
-                    <span>Get notified</span>
-                    <ArrowIcon src={asset("arrow-dark.svg")} />
+                    {item.label}
                   </a>
                 </li>
-              </ul>
-            </div>
-          )}
-        </Reveal>
+              ))}
+            </ul>
+          </div>
+
+          <div className="pt-6 border-t border-black/10">
+            <a
+              href="#signup"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center justify-between rounded-xl border border-black/10 bg-black/[0.04] p-4 font-lato text-[14px] font-bold text-[#121212] hover:bg-black/10 transition-colors"
+            >
+              <span>Get notified</span>
+              <ArrowIcon src={asset("arrow-dark.svg")} />
+            </a>
+          </div>
+        </div>
 
         {/* Hero Section */}
         <section className="relative z-10 mx-auto mt-[113px] flex w-full max-w-[402px] flex-col items-center gap-8 px-[43.5px] ipad:mt-[126px] ipad:max-w-[745px] ipad:px-[73px] desktop-sm:mt-[95.5px] desktop-sm:max-w-[599px] desktop-sm:px-0 full-hd:mt-[128px] full-hd:max-w-[760px] full-hd:gap-10 ultrawide:mt-[176px] ultrawide:max-w-[940px] ultrawide:gap-12">
