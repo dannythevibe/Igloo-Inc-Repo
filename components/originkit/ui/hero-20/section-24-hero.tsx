@@ -139,9 +139,9 @@ export const Section24Hero = () => (
           <div className="flex flex-col items-center gap-4">
             <Reveal>
               <h1 className="text-center font-instrument-serif text-[44px] leading-[1.1] tracking-[-1.32px] text-[#121212] ipad:text-[68px] ipad:leading-[77px] ipad:tracking-[-2.04px] full-hd:text-[86px] full-hd:leading-[97px] full-hd:tracking-[-2.58px] ultrawide:text-[106px] ultrawide:leading-[120px] ultrawide:tracking-[-3.18px]">
-                Designed for Living,
+                Build, Break,
                 <br />
-                Built for You
+                and Ship.
               </h1>
             </Reveal>
 
