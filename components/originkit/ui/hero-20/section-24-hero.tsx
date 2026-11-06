@@ -65,10 +65,10 @@ export const Section24Hero = () => {
   }, []);
 
   const navLinks = [
-    { label: "Library", href: "#library" },
-    { label: "Thaddeus", href: "#shipping" },
-    { label: "Studio", href: "#studio" },
-    { label: "Feedback", href: "#feedback" },
+    { label: "About", href: "#about" },
+    { label: "Products", href: "#products" },
+    { label: "Contact", href: "#contact" },
+    { label: "Blog", href: "#blog" },
   ];
 
   return (
