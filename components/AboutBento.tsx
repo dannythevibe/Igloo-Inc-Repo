@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowUpRight, ShieldCheck, Terminal, Compass, Layers, Sparkles } from 'lucide-react';
+import { ArrowUpRight, ShieldCheck, Terminal, Compass, Layers } from 'lucide-react';
 
 const CornerTicks = ({ size = 8.667, width = 0.722 }) => (
   <>
@@ -91,7 +91,21 @@ export const AboutBento: React.FC = () => {
               <span className="font-mono text-[11px] font-semibold tracking-wider text-white/50 uppercase">
                 02 / OPERATING PRINCIPLE
               </span>
-              <Sparkles className="w-4 h-4 text-white/70" />
+              {/* Obsidian Shard brand glyph */}
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.75"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="text-white/70"
+                aria-hidden="true"
+              >
+                <polygon points="6 3 18 3 22 9 12 22 2 9" />
+              </svg>
             </div>
 
             <div>
@@ -204,3 +218,4 @@ export const AboutBento: React.FC = () => {
     </section>
   );
 };
+
